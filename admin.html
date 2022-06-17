@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/></head>
+<body>
+
+    <h1 style="color:green"> 学生信息管理系统</h1>
+    <p>该系统包括查询、增加、删除、退出四大功能。</p>
+
+<!--     <button type="查询" value="查询">查询</button>-->
+<!--     <button type="增加" value="增加">增加</button>-->
+<!--     <button type="删除" value="删除">删除</button>-->
+<!--     <button type="button" onclick="exit.html" value="退出">退出</button>-->
+
+    <a href="http://127.0.0.1:5000/query">
+        <button>查询</button>
+    </a>
+    <a href="http://127.0.0.1:5000/add">
+        <button>增加</button>
+    </a>
+    <a href="http://127.0.0.1:5000/delete">
+        <button>删除</button>
+    </a>
+    <a href="http://127.0.0.1:5000/exit">
+        <button>退出</button>
+    </a>
+
+<table class="table" style="width:600px;margin:100px auto" method="post">
+  <thead>
+    <tr>
+      <th scope="col">序号</th>
+      <th scope="col">姓名</th>
+      <th scope="col">年龄</th>
+      <th scope="col">住址</th>
+        <th scope="col">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<!-- 将Python对象的数据显示到浏览器上，模板语法-->
+<!--    {{ students[4] }}-->
+    {% for stu in students %}
+        <tr>
+             <th>{{ stu.id }}</th>
+             <td>{{ stu.name }}</td>
+             <td>{{ stu.age }}</td>
+             <td>{{ stu.address }}</td>
+            <td><a onclick="return confirm('是否删除？')"  href="/delete?id={{ stu.id }}"  onclick="return confirm('删除成功！')">删除</a> </td>
+        </tr>
+    {% endfor %}
+
+  </tbody>
+
+</table>
+
+
+<!--<div class="container" style="width:10px;margin:10px auto">-->
+<!--    <div class="row">-->
+<!--        <div class="col-4">-->
+<!--            <a href="/add>">新增学员信息</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+</html>
