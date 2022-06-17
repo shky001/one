@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询</title>
+</head>
+<body>
+<h2 style="color:green">查询学生基本信息：</h2>
+<h3>请输入需查询学生序号：</h3>
+
+<form style="width:200px;margin:30px auto" method="POST" >
+<!--<form style="width:400px;margin:100px auto" method="post">-->
+<!--<form style="width:400px;margin:100px auto" action="{{url_for('admin')}}" method="GET">-->
+
+    <div class="form-group row">
+        <label for="num" class="col-sm-1 col-form-label">序号：</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="num" name="num">
+        </div>
+    </div>
+
+ <button type="submit" value="submit">确定</button>
+
+</form>
+<h3>  您查找的学生信息为：</h3>
+<br/>
+   {%if find%}
+            序号：{{ find['id'] }}             <br/><br/>
+            姓名：{{ find['name'] }}           <br/><br/>
+            年龄：{{ find['age'] }}            <br/><br/>
+            性别：{{ find['address'] }}
+   {%endif%}
+<br/>
+    <br/><br/>
+    <a href="{{url_for('admin')}}">跳转到首页</a>
+
+
+<!--<form style="width:400px;margin:100px auto"  action="admin.html" method="post">-->
+<!--     序号: <input type="text" name="num" /><br />-->
+<!--    <button type="button" value="submit" onclick="admin()">确定</button>-->
+<!--</form>-->
+</body>
+</html>
+
