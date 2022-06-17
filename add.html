@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加</title>
+</head>
+<body>
+<h2 style="color:green">添加学生基本信息：</h2>
+<h3>请输入信息：</h3>
+
+<form style="width:200px;margin:30px auto" method="POST" >
+    <div class="form-group row">
+        <label for="name" class="col-sm-1 col-form-label">序号：</label>
+        <div class="col-sm-2">
+            <input type="int" class="form-control" id="id" name="id">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-1 col-form-label">姓名：</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="age" class="col-sm-1 col-form-label">年龄：</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="age" name="age">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="address" class="col-sm-1 col-form-label">住址：</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+    </div>
+    <button onclick="return confirm('是否确认添加？')" type="确定" value="submit">确定</button>
+</form>
+</body>
+</html>
