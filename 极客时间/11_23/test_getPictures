@@ -1,0 +1,36 @@
+import os
+import shutil
+
+import requests
+from bs4 import BeautifulSoup
+
+contents = requests.get('https://www.infoq.com/presentations/').text
+# print(contents)
+soup = BeautifulSoup(contents, 'lxml')
+
+
+# 下载图片
+def download_jpg(image_url, image_localpath):
+    # 下载图片，与网页建立连接
+    response = requests.get(image_url, stream=True)
+    # 判断网页存在
+    if response.status_code == 200:
+        with open(image_localpath, 'wb') as f:
+            response.raw.deconde_content = True
+            # shutil库，将response返回信息写入文件
+            shutil.copyfileobj(response.raw, f)
+
+
+for pic_href in soup.find_all('ul',class_='cards no-style boxes'):
+    # print("1111111")
+    for pic in pic_href.find_all('img'):
+        imgurl = pic.get('src')
+        print(imgurl)
+        # 确定本地下载目录
+        dir = os.path.abspath('.')
+        # 处理完整路径
+        filename = os.path.basename(imgurl)
+        # 最终保存在 ......
+        imgpath = os.path.join(dir, filename)
+        print('开始下载 %s' % imgurl)
+        download_jpg(imgurl, imgpath)
