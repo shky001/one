@@ -9,6 +9,18 @@ class CandidateAdmin(admin.ModelAdmin):
     list_display = (
         'username', 'city', 'bachelor_school','first_score', 'first_result',
         'second_result', 'hr_score', 'hr_result', 'last_editor')
+
+    # 右侧筛选条件
+    list_filter = (
+    'city', 'first_result', 'second_result', 'hr_result', 'first_interviewer_user', 'second_interviewer_user',
+    'hr_interviewer_user')
+
+    # 查询字段
+    search_fields = ('username', 'phone', 'email', 'bachelor_school')
+
+    # 列表页排序字段
+    ordering = ('hr_result', 'second_result', 'first_result',)
+
     # 分组展示字段，分三块，基础信息、第一轮面试记录、第二轮面试（专业复试）、HR复试
     fieldsets = (
         (None, {'fields': ("userid", ("username", "city", "phone"),
