@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# from django.conf.urls import url,include
+from django.conf.urls import include
+from django.urls import re_path as url
+from django.utils.translation import gettext as _
+
 
 urlpatterns = [
+    url(r"^",include("jobs.urls")),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
 ]
+admin.site.site_header = _('匠果科技招聘管理系统')
