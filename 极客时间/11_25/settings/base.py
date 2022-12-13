@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-4w#%y#x#q86$w)$sh0bzy!lg^w*gzk&6rhg+zldkr+$u*f(#l)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+## 钉钉群的 WEB_HOOK， 用于发送钉钉消息
+DINGTALK_WEB_HOOK = "https://oapi.dingtalk.com/robot/send?access_token=e9101fb417f6afce2a7d96e81ff560e33908611323cb82e66f01cd433cc4cbb3"
+
 ALLOWED_HOSTS = []
 
 
