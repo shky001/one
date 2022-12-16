@@ -7,6 +7,8 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
+from django.views.generic.detail import DetailView
+
 from jobs.models import Job
 from jobs.models import Cities, JobTypes
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -55,3 +57,9 @@ class ResumeCreateView(LoginRequiredMixin, CreateView):
         self.object.applicant = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ResumeDetailView(DetailView):
+    """   简历详情页    """
+    model = Resume
+    template_name = 'resume_detail.html'
