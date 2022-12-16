@@ -32,12 +32,13 @@ DINGTALK_WEB_HOOK = "https://oapi.dingtalk.com/robot/send?access_token=e9101fb41
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/'
-SIMPLE_BACKEND_REDIRECT_URL = 'accounts/Login/'
+# SIMPLE_BACKEND_REDIRECT_URL = '/'
 
 # Application definition
 
 INSTALLED_APPS = [
     'registration',
+    'bootstrap4',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
