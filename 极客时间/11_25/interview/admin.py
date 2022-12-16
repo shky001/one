@@ -6,6 +6,10 @@ from django.http import HttpResponse
 from interview.models import Candidate
 from interview import candidate_fieldset as cf
 from interview import dingtalk
+from django.contrib import messages
+
+from django.utils.safestring import mark_safe
+from jobs.models import Resume
 
 
 exportable_fields = ('username', 'city', 'phone', 'bachelor_school', 'master_school', 'degree', 'first_result', 'first_interviewer_user',
@@ -49,6 +53,7 @@ def notify_interviewer(modeladmin, request, queryset):
         interviewers = obj.first_interviewer_user.username + ";" + interviewers
     # 消息发送到钉钉
     dingtalk.send ("通知：候选人 %s 进入面试环节，亲爱的面试官，请准备好面试： %s" % (candidates, interviewers) )
+    # messages.add_message(request, messages.INFO, '已经成功发送面试通知')
 
 notify_interviewer.short_description = u'通知一面面试官'
 
@@ -59,7 +64,7 @@ class CandidateAdmin(admin.ModelAdmin):
     exclude = ('creator', 'created_date', 'modified_date')
 
     list_display = (
-        'username', 'city', 'bachelor_school', 'first_score', 'first_result', 'first_interviewer_user',
+        'username', 'city', 'bachelor_school', 'get_resume', 'first_score', 'first_result', 'first_interviewer_user',
         'second_score',
         'second_result', 'second_interviewer_user', 'hr_score', 'hr_result', 'hr_interviewer_user',)
     # 右侧筛选条件
@@ -134,5 +139,17 @@ class CandidateAdmin(admin.ModelAdmin):
     def has_export_permission(self, request):
         opts = self.opts
         return request.user.has_perm('%s.%s' % (opts.app_label, "export"))
+
+    # 简历详情
+    def get_resume(self, obj):
+        if not obj.phone:
+            return ""
+        resumes = Resume.objects.filter(phone=obj.phone)
+        if resumes and len(resumes) > 0:
+            return mark_safe(u'<a href="/resume/%s" target="_blank">%s</a' % (resumes[0].id, "查看简历"))
+        return ""
+
+    get_resume.short_description = '查看简历'
+    get_resume.allow_tags = True
 
 admin.site.register(Candidate,CandidateAdmin)
