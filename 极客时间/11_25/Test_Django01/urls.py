@@ -22,17 +22,18 @@ from django.utils.translation import gettext as _
 
 
 urlpatterns = [
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-
     url(r"^",include("jobs.urls")),
     path('grappelli/', include('grappelli.urls')),
-    path(r'', admin.site.urls),
-    # path('admin/', admin.site.urls),
-    # path('accounts/', include('registration.backends.simple.urls')),
+    # path(r'', admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
 
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
+    path('i18n/', include('django.conf.urls.i18n')),
+
 ]
+
 admin.site.site_header = _('匠果科技招聘管理系统')
 
 
