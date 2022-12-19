@@ -73,6 +73,13 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
         },
 
+        'file': {
+            # 'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple',
+            'filename': os.path.join(os.path.dirname(BASE_DIR), 'Test_Django01.admin.log'),
+        },
+
         'performance': {
             #'level': 'INFO',
             'class': 'logging.FileHandler',
@@ -101,9 +108,12 @@ LOGGING = {
 }
 
 MIDDLEWARE = [
-    'interview.performance.performance_logger_middleware',
+    'interview.performance.PerformanceAndExceptionLoggerMiddleware',
+    # 'interview.performance.performance_logger_middleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -168,11 +178,20 @@ AUTH_PASSWORD_VALIDATORS = [
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'zh-hans'
 
+LANGUAGES = [
+    ('zh-hans', _('Chinese')),
+    ('en', _('English')),
+]
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
