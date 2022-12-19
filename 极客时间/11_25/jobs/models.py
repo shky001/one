@@ -2,6 +2,8 @@ from django.db import models
 # 导入系统自带的对象
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.utils.translation import gettext_lazy as _
+
 
 # Create your models here.
 # 候选人学历
@@ -17,35 +19,36 @@ Cities = [(0,"北京市"),
           ]
 
 class Job(models.Model):
-    job_type = models.SmallIntegerField(blank=False,choices=JobTypes,verbose_name="职位类别")
-    job_name = models.CharField(max_length=250,blank=False,verbose_name="职位名称")
-    job_city = models.SmallIntegerField(blank=False,choices=Cities,verbose_name="工作城市")
-    job_responsibility = models.TextField(max_length=1024,blank=False,verbose_name="岗位职责")
-    job_requirement = models.TextField(max_length=1024,blank=False,verbose_name="岗位要求")
-    creator = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,verbose_name="创建者")
-    created_date = models.DateTimeField(verbose_name="创建日期",default=datetime.now)
-    modified_date = models.DateTimeField(verbose_name="修改日期",default=datetime.now)
+    # Translators: 职位实体的翻译
+    job_type = models.SmallIntegerField(blank=False, choices=JobTypes, verbose_name=_("职位类别"))
+    job_name = models.CharField(max_length=250, blank=False, verbose_name=_("职位名称"))
+    job_city = models.SmallIntegerField(choices=Cities, blank=False, verbose_name=_("工作地点"))
+    job_responsibility = models.TextField(max_length=1024, verbose_name=_("职位职责"))
+    job_requirement = models.TextField(max_length=1024, blank=False, verbose_name=_("职位要求"))
+    creator = models.ForeignKey(User, verbose_name=_("创建人"), null=True, on_delete=models.SET_NULL)
+    created_date = models.DateTimeField(verbose_name=_("创建日期"), auto_now_add=True)
+    modified_date = models.DateTimeField(verbose_name=_("修改日期"), auto_now=True)
 
 
 class Resume(models.Model):
     # Translators: 简历实体的翻译
-    username = models.CharField(max_length=135, verbose_name=u'姓名')
-    applicant = models.ForeignKey(User, verbose_name="申请人", null=True, on_delete=models.SET_NULL)
-    city = models.CharField(max_length=135, verbose_name='城市')
-    phone = models.CharField(max_length=135, verbose_name='手机号码')
-    email = models.EmailField(max_length=135, blank=True, verbose_name='邮箱')
-    apply_position = models.CharField(max_length=135, blank=True, verbose_name='应聘职位')
-    born_address = models.CharField(max_length=135, blank=True, verbose_name='生源地')
-    gender = models.CharField(max_length=135, blank=True, verbose_name='性别')
-    picture = models.ImageField(upload_to='images/', blank=True, verbose_name='个人照片')
-    attachment = models.FileField(upload_to='file/', blank=True, verbose_name='简历附件')
+    username = models.CharField(max_length=135, verbose_name=_('姓名'))
+    applicant = models.ForeignKey(User, verbose_name=_("申请人"), null=True, on_delete=models.SET_NULL)
+    city = models.CharField(max_length=135, verbose_name=_('城市'))
+    phone = models.CharField(max_length=135,  verbose_name=_('手机号码'))
+    email = models.EmailField(max_length=135, blank=True, verbose_name=_('邮箱'))
+    apply_position = models.CharField(max_length=135, blank=True, verbose_name=_('应聘职位'))
+    born_address = models.CharField(max_length=135, blank=True, verbose_name=_('生源地'))
+    gender = models.CharField(max_length=135, blank=True, verbose_name=_('性别'))
+    picture = models.ImageField(upload_to='images/', blank=True, verbose_name=_('个人照片'))
+    attachment = models.FileField(upload_to='file/', blank=True, verbose_name=_('简历附件'))
 
     # 学校与学历信息
-    bachelor_school = models.CharField(max_length=135, blank=True, verbose_name='本科学校')
-    master_school = models.CharField(max_length=135, blank=True, verbose_name='研究生学校')
+    bachelor_school = models.CharField(max_length=135, blank=True, verbose_name=_('本科学校'))
+    master_school = models.CharField(max_length=135, blank=True, verbose_name=_('研究生学校'))
     doctor_school = models.CharField(max_length=135, blank=True, verbose_name=u'博士生学校')
-    major = models.CharField(max_length=135, blank=True, verbose_name='专业')
-    degree = models.CharField(max_length=135, choices=DEGREE_TYPE, blank=True, verbose_name='学历')
+    major = models.CharField(max_length=135, blank=True, verbose_name=_('专业'))
+    degree = models.CharField(max_length=135, choices=DEGREE_TYPE, blank=True, verbose_name=_('学历'))
     created_date = models.DateTimeField(verbose_name="创建日期", default=datetime.now)
     modified_date = models.DateTimeField(verbose_name="修改日期", auto_now=True)
 
@@ -55,8 +58,8 @@ class Resume(models.Model):
     project_experience = models.TextField(max_length=1024, blank=True, verbose_name=u'项目经历')
 
     class Meta:
-        verbose_name = u'简历'
-        verbose_name_plural = u'简历列表'
+        verbose_name = _('简历')
+        verbose_name_plural = _('简历列表')
 
 
 
