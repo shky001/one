@@ -1,4 +1,5 @@
 # from django.conf.urls import url
+from django.conf import settings
 from django.urls import path
 
 from django.urls import re_path as url
@@ -19,3 +20,8 @@ urlpatterns = [
     path('resume/<int:pk>/', views.ResumeDetailView.as_view(), name='resume-detail'),
 
 ]
+
+
+if settings.DEBUG :
+    # 有 XSS 漏洞的视图页面，
+    urlpatterns += [url(r'^detail_resume/(?P<resume_id>\d+)/$', views.detail_resume, name='detail_resume'),]
