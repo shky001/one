@@ -73,6 +73,14 @@ urlpatterns = [
 
 ]
 
+
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
+
+
 admin.site.site_header = _('匠果科技招聘管理系统')
 
 
