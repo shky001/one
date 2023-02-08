@@ -40,6 +40,7 @@ LOGIN_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'registration',
     'bootstrap4',
     'grappelli',
@@ -49,10 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jobs',
+    # 'jobs',  ## 应用不能重复注册，下面一行是手工注册 JobConfig
+    'jobs.apps.JobConfig',
     'interview',
     'rest_framework',
-    'django_oss_storage',
+    # 'django_oss_storage',
     #'recruitment.apps.UniversalManagerApp',
     #'running',
 ]
@@ -121,6 +123,8 @@ LOGGING = {
 MIDDLEWARE = [
     'interview.performance.PerformanceAndExceptionLoggerMiddleware',
     # 'interview.performance.performance_logger_middleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -221,3 +225,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
