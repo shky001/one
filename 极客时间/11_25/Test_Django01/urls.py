@@ -19,6 +19,9 @@ from django.urls import path
 from django.conf.urls import include
 from django.urls import re_path as url
 from django.utils.translation import gettext as _
+
+from . import views
+# from Test_Django01 import views
 from jobs.models import Job
 
 from django.urls import path, include
@@ -70,6 +73,16 @@ urlpatterns = [
 
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
+
+    # 使用 login_with_captcha 作为管理员的登陆页
+    url(r'^admin/login/?$', views.login_with_captcha, name='adminlogin'),
+
+    path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
+
+    path('captcha/', include('captcha.urls')),
+
+    path("clogin/", views.login_with_captcha, name="clogin"),
 
 ]
 
