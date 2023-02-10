@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     # 'django_oss_storage',
     #'recruitment.apps.UniversalManagerApp',
     #'running',
+    'captcha',
 ]
 
 REST_FRAMEWORK = {
@@ -144,7 +145,8 @@ ROOT_URLCONF = 'Test_Django01.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'Test_Django01/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
